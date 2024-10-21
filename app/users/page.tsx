@@ -6,7 +6,11 @@ interface User {
 }
 
 const UsersPage = async () => {
-    const res =  await fetch('https://jsonplaceholder.typicode.com/users')
+    const res = await fetch(
+        // Next.js is gonna run back ground job and get fresh
+        // data from the backend every 10 seconds.
+        'https://jsonplaceholder.typicode.com/users',
+        {next: {revalidate: 10}});
     const users: User[] = await res.json();
     // no state and effect hook here
     // our bundle is going to be smaller because this component will be on the server.
