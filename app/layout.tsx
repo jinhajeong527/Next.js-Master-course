@@ -31,8 +31,10 @@ export default function RootLayout({
         <NavBar/>
         {/*For more semantic HTML*/}
         <main className='p-5'>
-            {/*Children can be a page at run time*/}
-            {children}
+            {/*<Suspense fallback={<p>Loading...</p>}>*/}
+                {/*Children can be a page at run time*/}
+                {children}
+            {/*</Suspense>*/}
         </main>
         </body>
         </html>

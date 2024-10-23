@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import UserTable from "@/app/users/UserTable";
 import Link from "next/link";
 
@@ -17,7 +17,9 @@ const UsersPage = async ({searchParams: {sortOrder}}: Props) => {
             {/*By default, when we use Tailwind, our element are unstyled*/}
             <h1>Users</h1>
             <Link href="/users/new" className='btn'>New User</Link>
-            <UserTable sortOrder={sortOrder} />
+            <Suspense fallback={<p>Loading...</p>}>
+                <UserTable sortOrder={sortOrder}/>
+            </Suspense>
         </>
     );
 };
