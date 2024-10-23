@@ -13,6 +13,7 @@ const UsersPage = async ({searchParams: {sortOrder}}: Props) => {
     // We have to do that in our pages
     return (
         <>
+            {/*By default, when we use Tailwind, our element are unstyled*/}
             <h1>Users</h1>
             <UserTable sortOrder={sortOrder} />
         </>
