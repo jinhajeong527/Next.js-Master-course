@@ -19,7 +19,7 @@ export async function GET(
 
 export async function PUT(
     request: NextRequest,
-    {params}: { params: { id: number } }
+    {params}: { params: { id: string } }
 ) {
     const body = await request.json();
     // This does not yell at us if there is a validation error
@@ -29,23 +29,35 @@ export async function PUT(
         return NextResponse.json(validation.error.errors, {status: 400});
     // Fetch the user with the given id
     // if it doesn't exist, return 404
-    if (params.id > 10)
+    const user = await prisma.user.findUnique({
+        where: {id: parseInt(params.id)}
+    })
+    if (!user)
         return NextResponse.json({error: 'User not found', status: 404});
-    // Update the user
-    // Return the updated user
-    return NextResponse.json({id: 1, name: body.name});
+
+    const updatedUser = await prisma.user.update({
+        where: {id: user.id},
+        data: {
+            name: body.name,
+            email: body.email,
+        }
+    })
+    return NextResponse.json(updatedUser);
 }
 
 export async function DELETE(
     request: NextRequest,
-    {params}: { params: { id: number } }
-    ) {
-    // Fetch user from db
-    // If not found, return 404
-    if (params.id > 10) {
+    {params}: { params: { id: string } }
+) {
+    const user = await prisma.user.findUnique({
+        where: {id: parseInt(params.id)}
+    });
+    // Fetch user from db. If not found, return 404
+    if (!user) {
         return NextResponse.json({error: 'User not found', status: 404});
     }
     // Delete the user
     // Return 200 response
+    await prisma.user.delete({where:{id: user.id}})
     return NextResponse.json({});
 }
