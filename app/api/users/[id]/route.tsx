@@ -1,16 +1,20 @@
 import {NextRequest, NextResponse} from "next/server";
 import schema from "@/app/api/users/schema";
+import prisma from "@/prisma/client";
 
-export function GET(
+export async function GET(
     request: NextRequest,
-    {params}: { params: { id: number } }) {
+    {params}: { params: { id: string } }) {
+    const user = await prisma.user.findUnique({
+        where: {id: parseInt(params.id)}
+    })
     // Fetch data from a db
     // If not found, return 404 error
     // Else return data
-    if (params.id > 10) {
+    if (!user) {
         return NextResponse.json({error: 'User not found', status: 404});
     }
-    return NextResponse.json({id: 1, name: 'John Doe'});
+    return NextResponse.json(user);
 }
 
 export async function PUT(
