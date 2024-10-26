@@ -17,7 +17,13 @@ const UploadPage = () => {
                     if (results.event !== 'success') return;
                     const info = results.info as CloudinaryResult;
                     setPublicId(info.public_id);
-                }}>
+                }}
+                options={{
+                    sources: ["local"],
+                    multiple: false,
+                    maxFiles: 5,
+                }}
+            >
                 {({open}) => <button
                     className='btn btn-primary'
                     onClick={() => open()}>Upload</button>
