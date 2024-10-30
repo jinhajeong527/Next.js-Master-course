@@ -2,6 +2,7 @@ import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import NavBar from "@/app/NavBar";
+import AuthProvider from "@/app/auth/Provider";
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",
@@ -27,16 +28,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" data-theme="winter">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NavBar/>
-        {/*For more semantic HTML*/}
-        <main className='p-5'>
-            {/*<Suspense fallback={<p>Loading...</p>}>*/}
-                {/*Children can be a page at run time*/}
-                {children}
-            {/*</Suspense>*/}
-        </main>
-        </body>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+                <AuthProvider>
+                <NavBar/>
+                {/*For more semantic HTML*/}
+                <main className='p-5'>
+                    {/*<Suspense fallback={<p>Loading...</p>}>*/}
+                    {/*Children can be a page at run time*/}
+                    {children}
+                    {/*</Suspense>*/}
+                </main>
+                </AuthProvider>
+            </body>
         </html>
     );
 }
