@@ -1,9 +1,9 @@
-import NextAuth from "next-auth"
+import NextAuth, {NextAuthOptions} from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import prisma from "@/prisma/client"
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
     providers:[
         GoogleProvider({
@@ -15,6 +15,14 @@ export const authOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         })
     ],
+    pages: {
+        signIn: '/dashboard'
+    }
+    // As the time of the video recorded, this option was needed
+    // to store JWT session info to the Database
+    // session: {
+    //     strategy: 'jwt'
+    // }
 }
 
 const handler = NextAuth(authOptions);
