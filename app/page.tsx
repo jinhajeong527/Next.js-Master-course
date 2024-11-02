@@ -19,11 +19,20 @@ import croissant from "@/public/images/croissant.png";
 
 export default async function Home() {
     return (
-        <main>
-            <Image
-                src={croissant}
-                alt="Croissant"
-            />
+        <main className={"relative h-screen"}>
+            <h1>
+                Hello
+            </h1>
+            {/*<Image*/}
+            {/*    src={"https://bit.ly/react-cover"}*/}
+            {/*    alt="Croissant"*/}
+            {/*    fill*/}
+            {/*    className={"object-cover"}*/}
+            {/*    sizes="(max-width: 480px) 100vw,*/}
+            {/*    (max-width: 768px) 50vw, 33vw"*/}
+            {/*    quality={100}*/}
+            {/*    priority*/}
+            {/*/>*/}
         </main>
     )
 }

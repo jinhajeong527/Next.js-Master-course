@@ -9,6 +9,9 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                geistSans: "var(--font-geist-sans)",
+            },
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
